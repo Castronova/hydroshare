@@ -12,7 +12,8 @@
         data_model_get_file_from_node( $node, $data_model_file );
         $format = $data_model_file->filemime;
         
-        $real_path = drupal_realpath( $data_model_file->uri );
+        //$real_path = drupal_realpath( $data_model_file->uri );
+        $real_path = file_create_url( $data_model_file->uri );
         $data_model_dir = drupal_dirname( $real_path );
         $data_model_dir = drupal_dirname( $data_model_dir );
 
@@ -23,7 +24,9 @@
         
             // =-=-=-=-=-=-=-
             // display the viz thumbnail
-            $img_url = file_create_url( $data_model_dir.'/thumbnail.png' );
+            $img_dir = drupal_dirname( $data_model_file->uri );
+            $img_dir = drupal_dirname( $img_dir );
+            $img_url = file_create_url( $img_dir.'/thumbnail.png' );
             $img_tag = '<a href="'.$node_url.'"><img src='.$img_url.' width=160 height=120 class=floatLeft ></a>';
             print( $img_tag );
         
