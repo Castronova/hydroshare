@@ -64,7 +64,7 @@ function hydrology_model_populate_fields($form, &$form_state){
     //*************************
     
     // create a file instance from uploaded model
-    $fid =  $form_state['values']['field_file']['und'][0]['fid'];
+    $fid =  $form_state['values']['field_file_model']['und'][0]['fid'];
     $f = file_load($fid);   
     $url = file_create_url($f->uri);
 
@@ -230,11 +230,12 @@ function hydrology_model_build_form(&$form){
     //**************************************
     
     // move file upload fields
-    $form['input_fieldset']['field_file'] = $form['field_file'];
-    $form['field_file'] = array('language' => NULL);
+    $form['input_fieldset']['field_file_model'] = $form['field_file_model'];
+    $form['field_file_model'] = array('language' => NULL);
     
     //$form['input_fieldset']['field_model_archive'] = $form['field_model_archive'];
     $form['field_model_archive'] = array('language' => NULL);
+    $form['field_file'] = array('language' => NULL);
     
     $form['input_fieldset']['field_spatial_coverage'] = $form['field_spatial_coverage'];
     $form['field_spatial_coverage'] = array('language' => NULL);
