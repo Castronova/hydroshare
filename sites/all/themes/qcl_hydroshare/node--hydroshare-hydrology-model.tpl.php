@@ -111,16 +111,18 @@
                             print( '<p><span class="bold">Resource Type:</span> '.$type.'</p>');
                             print( '<p><span class="bold">Model Type: </span>'.$model_type.'</p>');
                             print( '<p><span class="bold">Created by:</span> '.$user->name.'</p>');
-                            print( '<p><span class="bold">Created: </span>'.$contrib_dt.'</p>');
+                            print( '<p><span class="bold">Created on: </span>'.$contrib_dt.'</p>');
                             // ratings
                             print( '<div class="starWrapper">');
                                 print( render( $content['field_rating'] ) );
                             print('</div>');
                             // tags
                             $tags = $node->field_tags['und'];
+                            $tags = array("Model", "SWAT", "Watershed Hydrology");  // REMOVE THIS
                             print( '<p><span class="bold">Tags: </span>' );
                             foreach( $tags as $tag ) {
-                                print( $tag['taxonomy_term']->name.', ');
+                                //print( $tag['taxonomy_term']->name.', ');
+                              print( $tag.', ');
                             }
                             print( '</p>' );
                         print( '</div> <!-- half-column -->' );
@@ -128,11 +130,11 @@
                         print( '<div class="half-column-right">' );
 
                          
-                            print( '<p><span class="bold">Contributors: </span>'.$contrib.'</p>');
+                            //print( '<p><span class="bold">Contributors: </span>'.$contrib.'</p>');
                             print( '<p><span class="bold">Model Begin: </span>'.$begin.'</p>');
                             print( '<p><span class="bold">Model End: </span>'.$end.'</p>');
-                            print( '<p><span class="bold">Time Interval </span>'.$interval.'</p>');
-                            print( '<p><span class="bold">Development Level: </span>'.$level.'</p>');
+                            print( '<p><span class="bold">Time Interval (sec): </span>86400</p>');
+                            //print( '<p><span class="bold">Development Level: </span>'.$level.'</p>');
                             print( '<p><span class="bold">Version: </span>'.$version .'</p>');
                             print( '<p><span class="bold">Date Created: </span>'.$create_dt.'</p>');
                             print( '<p><span class="bold">Format: </span>'.'zip'.'</p>');
