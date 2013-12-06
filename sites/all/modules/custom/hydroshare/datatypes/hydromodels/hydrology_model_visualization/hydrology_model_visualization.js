@@ -1,13 +1,12 @@
 function hydrology_model_plot_single(arrData){
 
-
   var plotHt = 300;
 
-  var margin= {top:(10), right: 10, bottom:(120), left: 40};
-      margin2 = {top:200, right: 10, bottom:20, left: 40};
+  var margin= {top:(10), right: 10, bottom:(120), left: 60};
+      margin2 = {top:210, right: 10, bottom:20, left: 60};
       width = 700 - margin2.left - margin2.right;
       height = plotHt - margin.top - margin.bottom;
-      height2  = plotHt - margin2.top - margin2.bottom;
+      height2  = plotHt - margin2.top - margin2.bottom - 10;
 
 
 
@@ -17,8 +16,10 @@ function hydrology_model_plot_single(arrData){
       y2 = d3.scale.linear().range([height2, 0]);
 
   var xAxis = d3.svg.axis().scale(x).orient("bottom"),
-      xAxis2 = d3.svg.axis().scale(x2).orient("bottom"),
+      xAxis2 = d3.svg.axis().scale(x2).orient("bottom").tickFormat(d3.time.format("%m/%Y")),
       yAxis = d3.svg.axis().scale(y).orient("left");
+
+
 
   var brush = d3.svg.brush()
       .x(x2)
@@ -107,10 +108,28 @@ function hydrology_model_plot_single(arrData){
         .attr("y", -6)
         .attr("height", height2 + 7);
 
+  // add y label
+  svg.append('text')
+    .attr("class","y label")
+    .attr("text-anchor","end")
+    .attr("y",6)
+    .attr("dy",".75em")
+    .attr("transform","rotate(-90)")
+    .text("Streamflow (cfs)");
+    
   function brushed() {
     x.domain(brush.empty() ? x2.domain() : brush.extent());
+    
+    var dataFiltered = data.filter(function(d,i){
+      if ( (d.date >= x.domain()[0]) && (d.date<=x.domain()[1]) ){
+        return d.value;
+      }
+    })
+    y.domain([0,d3.max(dataFiltered.map(function(d){return d.value;}))]);
+    
     focus.select("path").attr("d", area);
     focus.select(".x.axis").call(xAxis);
+    focus.select(".y.axis").call(yAxis);
   }
 
 }
